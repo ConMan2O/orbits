@@ -22,9 +22,10 @@ int main() {
     
     while(true) {
         // Add an orbiter when A is pressed if there's room
+        // Wave 6 - Made orbiters spawn to the right of the center instead of at the center to reduce collision
         if(bn::keypad::a_pressed()) {
             if(orbiters.size() < MAX_ORBITERS) {
-                orbiters.push_back(Orbiter(ORBITER_START_POSIITON, ORBITER_START_VELOCITY, center));
+                orbiters.push_back(Orbiter(center.position() + bn::fixed_point(30, 0), ORBITER_START_VELOCITY, center));
             }
         }
 
@@ -33,6 +34,11 @@ int main() {
             if(orbiters.size() > 0) {
                 orbiters.pop_back();
             }
+        }
+
+        // Wave 6 - Remove all orbiters when Start is pressed
+        if(bn::keypad::start_pressed()) {
+            orbiters.clear();
         }
 
         center.update();
